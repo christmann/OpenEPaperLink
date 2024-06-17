@@ -620,6 +620,12 @@ void init_web() {
         if (request->hasParam("env", true)) {
             config.env = request->getParam("env", true)->value();
         }
+        if (request->hasParam("tagcontrollerurl", true)) {
+            config.tagControllerUrl = request->getParam("tagcontrollerurl", true)->value();
+        }
+        if (request->hasParam("tagcontrollerinterval", true)) {
+            config.tagControllerInterval = static_cast<uint16_t>(request->getParam("tagcontrollerinterval", true)->value().toInt());
+        }
         saveAPconfig();
         setAPchannel();
         request->send(200, "text/plain", "Ok, saved");

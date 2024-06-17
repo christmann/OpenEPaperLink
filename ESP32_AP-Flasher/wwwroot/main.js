@@ -762,6 +762,8 @@ document.addEventListener("loadTab", function (event) {
 						$("#apctimezone").value = data.timezone;
 						$("#apcnight1").value = data.sleeptime1;
 						$("#apcnight2").value = data.sleeptime2;
+						$('#apcfgtagcontroller').value = data.tagcontrollerurl;
+						$('#apcfgtagcontrollerinterval').value = data.tagcontrollerinterval;
 					}
 				})
 			$('#apcfgmsg').innerHTML = '';
@@ -798,6 +800,8 @@ $('#apcfgsave').onclick = function () {
 	formData.append('timezone', $('#apctimezone').value);
 	formData.append('sleeptime1', $('#apcnight1').value);
 	formData.append('sleeptime2', $('#apcnight2').value);
+	formData.append("tagcontrollerurl", $('#apcfgtagcontroller').value);
+	formData.append("tagcontrollerinterval", $('#apcfgtagcontrollerinterval').value);
 
 	fetch("save_apcfg", {
 		method: "POST",

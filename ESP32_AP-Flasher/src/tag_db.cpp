@@ -339,6 +339,8 @@ void initAPconfig() {
     config.wifiPower = APconfig.containsKey("wifipower") ? APconfig["wifipower"] : 34;
     config.repo = APconfig.containsKey("repo") ? APconfig["repo"].as<String>() : String("jjwbruijn/OpenEPaperLink");
     config.env = APconfig.containsKey("env") ? APconfig["env"].as<String>() : String(STR(BUILD_ENV_NAME));
+    config.tagControllerUrl = APconfig.containsKey("tagcontrollerurl") ? APconfig["tagcontrollerurl"].as<String>() : String("");
+    config.tagControllerInterval = APconfig.containsKey("tagcontrollerinterval") ? APconfig["tagcontrollerinterval"] : 60;
     if (APconfig["timezone"]) {
         strlcpy(config.timeZone, APconfig["timezone"], sizeof(config.timeZone));
     } else {
@@ -367,6 +369,8 @@ void saveAPconfig() {
     APconfig["ble"] = config.ble;
     APconfig["repo"] = config.repo;
     APconfig["env"] = config.env;
+    APconfig["tagcontrollerurl"] = config.tagControllerUrl;
+    APconfig["tagcontrollerinterval"] = config.tagControllerInterval;
     serializeJsonPretty(APconfig, configFile);
     configFile.close();
     xSemaphoreGive(fsMutex);

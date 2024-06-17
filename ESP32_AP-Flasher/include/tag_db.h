@@ -74,6 +74,8 @@ struct Config {
     uint8_t ble;
     String repo;
     String env;
+    String tagControllerUrl;
+    uint16_t tagControllerInterval;
 };
 
 struct Color {

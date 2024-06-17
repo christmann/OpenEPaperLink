@@ -10,6 +10,7 @@
 #include "storage.h"
 #include "system.h"
 #include "tag_db.h"
+#include "tagcontroller.h"
 #include "tagdata.h"
 #include "wifimanager.h"
 
@@ -32,6 +33,7 @@ util::Timer intervalContentRunner(seconds(1));
 util::Timer intervalSysinfo(seconds(5));
 util::Timer intervalVars(seconds(10));
 util::Timer intervalSaveDB(minutes(5));
+util::Timer intervalUpdateTagController(minutes(1));
 
 SET_LOOP_TASK_STACK_SIZE(16 * 1024);
 
@@ -116,6 +118,7 @@ void setup() {
 
     updateLanguageFromConfig();
     updateBrightnessFromConfig();
+    intervalUpdateTagController.setInterval(minutes(config.tagControllerInterval));
 
     config.runStatus = RUNSTATUS_INIT;
     init_web();
@@ -179,6 +182,10 @@ void loop() {
     }
     if (intervalSaveDB.doRun() && config.runStatus != RUNSTATUS_STOP) {
         saveDB("/current/tagDB.json");
+    }
+    if (intervalUpdateTagController.doRun() && config.runStatus != RUNSTATUS_STOP && !config.tagControllerUrl.isEmpty()) {
+        tagcontrollerUpdate();
+        intervalUpdateTagController.setInterval(minutes(config.tagControllerInterval));
     }
     if (intervalContentRunner.doRun() && (apInfo.state == AP_STATE_ONLINE || apInfo.state == AP_STATE_NORADIO)) {
         contentRunner();

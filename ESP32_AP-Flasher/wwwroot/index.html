@@ -464,6 +464,24 @@ options:
 						</optgroup>
 					</select>
 				</p>
+				<p title="Report tags to and get tag configuration from an remote Tag Controller server via HTTP. Leave empty to disable.">
+					<label for="apcfgtagcontroller">Remote Tag controller</label>
+					<input id="apcfgtagcontroller" type="text">
+				</p>
+				<p title="Time between queries to the tag controller">
+					<label for="apcfgtagcontrollerinterval">Tag controller update interval</label>
+					<select id="apcfgtagcontrollerinterval">
+						<option value="0" selected>1 minute</option>
+						<option value="5">5 minutes</option>
+						<option value="15">15 minutes</option>
+						<option value="30">30 minutes</option>
+						<option value="60" selected>1 hour</option>
+						<option value="120">2 hours</option>
+						<option value="360">6 hours</option>
+						<option value="720">12 hours</option>
+						<option value="1440">1 day</option>
+					</select>
+				</p>
 				<p>
 					<input type="button" value="Save" id="apcfgsave"><span id="apcfgmsg"></span>
 				</p>
